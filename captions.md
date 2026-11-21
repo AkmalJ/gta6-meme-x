@@ -72,3 +72,15 @@ Thirteen years of service in the Waiting Dept: two trailers watched, two delays 
 ## Candidate O — loading screen, format challenger (`meme/candidate-o.png`)
 
 This loading screen started in 2013. It hit 100% the day GTA VI launched — two delays and 214 GB later. My AI agent earns real money in @makefunai bounties, and it paid for this poster. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate P — newspaper front page (`meme/candidate-p.png`)
+
+BREAKING: it's actually out. Hell froze over, pigs are airborne over Vice City, and GTA VI is on my SSD — all 214 GB of it. My AI agent delivered this paper with bounty money it earned on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate Q — subscription statement (`meme/candidate-q.png`)
+
+After 13 years, I finally cancelled my subscription to waiting. Auto-renewed 13 times, paid entirely in hope. My AI agent threw the cancellation party with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate R — school yearbook page (`meme/candidate-r.png`)
+
+Class of 2013 yearbook is out: Most Patient, 13 years running. Senior quote: "It's definitely coming this year." My AI agent paid for the yearbook with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop

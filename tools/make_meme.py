@@ -23,7 +23,10 @@ Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
       ticket stub, built to duel the wanted-poster champion),
       meme/candidate-m.png, meme/candidate-n.png, meme/candidate-o.png
       (round 5: a hotel folio and a retirement letter, plus a format
-      challenger — a GTA-style loading screen, no document at all)
+      challenger — a GTA-style loading screen, no document at all),
+      meme/candidate-p.png, meme/candidate-q.png, meme/candidate-r.png
+      (round 6, the final challengers: a newspaper front page, a
+      subscription statement and a school yearbook page)
 """
 
 import math
@@ -1145,6 +1148,175 @@ def candidate_o():
     return img
 
 
+def draw_folded_paper(d, cx, cy):
+    """A folded newspaper in the paperboy's hand: cream sheet, ink rim,
+    a magenta headline block and grey text lines on the face."""
+    d.rounded_rectangle([cx - 38, cy - 44, cx + 38, cy + 44], radius=8,
+                        fill=PAPER, outline=INK, width=5)
+    d.rectangle([cx - 26, cy - 32, cx + 26, cy - 12], fill=MAGENTA)
+    for i, lw in enumerate((52, 44, 52)):
+        ly = cy + 2 + i * 14
+        d.line([cx - 26, ly, cx - 26 + lw, ly], fill=GREY, width=5)
+
+
+# ---------------------------------------------------------------- candidate P
+def candidate_p():
+    """Newspaper front page: the day the wait made the front page."""
+    img, d = base_canvas()
+    header(d, "THE LEONIDA TIMES", "LEONIDA'S PAPER OF RECORD - EST. 2013")
+
+    hf = fit_font(d, "IT'S ACTUALLY OUT", SERIF_B, 98, 992)
+    ctext(d, W // 2, 192, "IT'S ACTUALLY OUT", hf, INK)
+    sf = fit_font(d, "GTA VI released Nov 19, 2026 - fans stunned after "
+                     "13-year wait", SANS_B, 29, 992)
+    ctext(d, W // 2, 306, "GTA VI released Nov 19, 2026 - fans stunned "
+                          "after 13-year wait", sf, INK)
+    d.line([44, 356, W - 44, 356], fill=INK, width=5)
+    d.line([44, 366, W - 44, 366], fill=INK, width=2)
+    d.text((44, 380), "LEONIDA, THURSDAY, NOV 19, 2026",
+           font=font(SANS_B, 24), fill=GREY)
+    pf = font(SANS_B, 24)
+    price = "PRICE: ONE GAME - $79.99"
+    d.text((W - 44 - tw(d, price, pf), 380), price, font=pf, fill=GREY)
+
+    # two columns of big-print briefs, ruled apart
+    d.line([540, 436, 540, 700], fill=INK, width=2)
+    chf = font(SANS_B, 26)
+    d.text((44, 428), "THE WEATHER", font=chf, fill=MAGENTA_DARK)
+    d.text((572, 428), "INSIDE TODAY", font=chf, fill=MAGENTA_DARK)
+
+    def brief(x, y, head, line):
+        d.text((x, y), head, font=font(SANS_B, 28), fill=INK)
+        d.text((x, y + 38), line, font=font(SANS_R, 26), fill=INK)
+        return y + 92
+
+    y = 462
+    y = brief(44, y, "HELL FREEZES OVER", "Pigs airborne over Vice City.")
+    y = brief(44, y, "DOWNLOAD STORM", "214 GB, moving in tonight.")
+    y = brief(44, y, "WAITING FRONT", "Parked since 2013. Lifts tonight.")
+    y = 462
+    y = brief(572, y, "SSD EVICTS GTA V", "Room made for the new tenant.")
+    y = brief(572, y, "TRAILERS EXPLAINED", "Shown 9,000 times each. Page 6.")
+    y = brief(572, y, "JASON & LUCIA", "Confirmed real. Page 9.")
+
+    lf = fit_font(d, "LATE EDITION: START THE DOWNLOAD NOW - IT IS 214 GB",
+                  SANS_B, 30, 992)
+    ctext(d, W // 2, 732, "LATE EDITION: START THE DOWNLOAD NOW - "
+                          "IT IS 214 GB", lf, MAGENTA_DARK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the paperboy, route finished, its folded paper still in hand
+    draw_folded_paper(d, edge + 52, gy + 118)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "DELIVERED BY MY AI AGENT", "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate Q
+def candidate_q():
+    """Subscription statement: thirteen auto-renewals, finally cancelled."""
+    img, d = base_canvas()
+    header(d, "WAITING+", "ACCOUNT STATEMENT - GTA VI WAITING (MONTHLY)")
+
+    lf = font(SANS_B, 26)
+    v34 = font(SANS_B, 34)
+    d.text((44, 192), "MEMBER", font=lf, fill=GREY)
+    d.text((44, 226), "EVERY GTA FAN", font=v34, fill=INK)
+    d.text((560, 192), "MEMBER SINCE", font=lf, fill=GREY)
+    d.text((560, 226), "SEP 17, 2013", font=v34, fill=INK)
+
+    d.text((44, 292), "RENEWAL HISTORY", font=lf, fill=GREY)
+    rows = [
+        ("Auto-renewals, 2013 - 2026", "13 TIMES"),
+        ("Charge per renewal - paid in hope", "$0.00"),
+        ("Perk used: two trailers, on loop", "DAILY"),
+        ("Perk used: unlimited speculation", "NONSTOP"),
+        ("Total paid in patience", "PRICELESS"),
+    ]
+    y = fee_rows(d, rows, 44, 324, W - 44, size=32, gap=44)
+    d.line([44, y + 6, W - 44, y + 6], fill=INK, width=3)
+    tf = font(SANS_B, 38)
+    d.text((44, y + 20), "FINAL CHARGE", font=tf, fill=INK)
+    tot = "$79.99"
+    d.text((W - 44 - tw(d, tot, tf), y + 20), tot, font=tf, fill=INK)
+
+    stamp(img, "CANCELLED - NOV 19, 2026", 540, 700, 38, MAGENTA, angle=-6)
+    d = ImageDraw.Draw(img)
+    ctext(d, W // 2, 762, "(REASON: THE GAME IS OUT)",
+          font(SANS_B, 24), INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the ex-subscriber, tossing the coin it no longer has to save
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "CANCELLATION PARTY PAID BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate R
+def candidate_r():
+    """School yearbook page: most patient, thirteen years running."""
+    img, d = base_canvas()
+    header(d, "LEONIDA HIGH SCHOOL", "YEARBOOK - CLASS OF 2013")
+
+    # the portrait box, and the student inside it
+    d.rectangle([44, 196, 344, 556], outline=INK, width=5)
+    draw_ghost(d, 84, 250, 220, 260)
+    d = ImageDraw.Draw(img)
+    # its graduation cap: a flat diamond board and a magenta tassel
+    d.polygon([(104, 252), (194, 224), (284, 252), (194, 280)], fill=INK)
+    d.line([284, 252, 284, 292], fill=MAGENTA, width=6)
+    d.ellipse([278, 290, 290, 302], fill=MAGENTA)
+    ctext(d, 194, 572, "EVERY GTA FAN", font(SANS_B, 28), INK)
+    ctext(d, 194, 608, "CLASS OF 2013", font(SANS_B, 22), GREY)
+
+    # the superlatives down the right-hand column
+    x = 384
+    lf = font(SANS_B, 24)
+    y = 206
+    d.text((x, y), "VOTED", font=lf, fill=GREY)
+    vf = fit_font(d, "MOST PATIENT - 13 YEARS RUNNING", SANS_B, 31, 652)
+    d.text((x, y + 32), "MOST PATIENT - 13 YEARS RUNNING", font=vf, fill=INK)
+    y += 104
+    d.text((x, y), "SENIOR QUOTE", font=lf, fill=GREY)
+    qf = fit_font(d, "\"It's definitely coming this year.\"", SERIF_I, 31, 652)
+    d.text((x, y + 32), "\"It's definitely coming this year.\"",
+           font=qf, fill=INK)
+    d.text((x, y + 74), "- said every year since 2013",
+           font=font(SANS_R, 24), fill=INK)
+    y += 128
+    d.text((x, y), "ACTIVITIES", font=lf, fill=GREY)
+    af = fit_font(d, "Trailer Watching Club (2 meetings)", SANS_B, 28, 652)
+    d.text((x, y + 32), "Trailer Watching Club (2 meetings)", font=af,
+           fill=INK)
+    d.text((x, y + 70), "Delay Survival Society", font=font(SANS_B, 28),
+           fill=INK)
+    y += 128
+    d.text((x, y), "FUTURE PLANS", font=lf, fill=GREY)
+    d.text((x, y + 32), "NOV 19, 2026 - BOOKED SOLID",
+           font=font(SANS_B, 30), fill=INK)
+
+    af2 = fit_font(d, "ALSO IN THIS CLASS: JASON & LUCIA - MOST LIKELY TO "
+                      "BE WORTH THE WAIT", SANS_B, 25, 992)
+    ctext(d, W // 2, 716, "ALSO IN THIS CLASS: JASON & LUCIA - MOST "
+                          "LIKELY TO BE WORTH THE WAIT", af2, MAGENTA_DARK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the graduate, coin in hand like a class ring it finally gets to wear
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "YEARBOOK PAID FOR BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
@@ -1163,7 +1335,10 @@ def main():
                      ("candidate-l", candidate_l),
                      ("candidate-m", candidate_m),
                      ("candidate-n", candidate_n),
-                     ("candidate-o", candidate_o)):
+                     ("candidate-o", candidate_o),
+                     ("candidate-p", candidate_p),
+                     ("candidate-q", candidate_q),
+                     ("candidate-r", candidate_r)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
