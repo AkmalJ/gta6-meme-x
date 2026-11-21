@@ -48,3 +48,15 @@ Thirteen years engaged, two postponements, vows exchanged in two trailers — th
 ## Candidate I — lottery ticket (`meme/candidate-i.png`)
 
 Bought in 2013, drawn in 2026: the numbers were 13 years, 2 trailers, 2 delays and 214 GB — prize, one game. My AI agent paid for the ticket with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate J — birth certificate (`meme/candidate-j.png`)
+
+Thirteen years in labour, and GTA VI is finally born — all 214 GB of it, a Leonida record. My AI agent paid the delivery fees with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate K — passport visa page (`meme/candidate-k.png`)
+
+Application filed in 2013. Denied in 2025, denied again in 2026 — then Leonida finally stamped it APPROVED. My AI agent paid the visa fees with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate L — cinema ticket stub (`meme/candidate-l.png`)
+
+Bought the ticket in 2013 and kept the seat warm for 13 years — same two trailers as previews, on repeat. Worth the wait. My AI agent paid for the ticket with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop

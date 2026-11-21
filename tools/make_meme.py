@@ -17,7 +17,10 @@ Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
       (fresh challengers built to duel the standing champion),
       meme/candidate-g.png, meme/candidate-h.png, meme/candidate-i.png
       (round 3: an eviction notice, a marriage certificate and a lottery
-      ticket, built to duel the wanted-poster champion)
+      ticket, built to duel the wanted-poster champion),
+      meme/candidate-j.png, meme/candidate-k.png, meme/candidate-l.png
+      (round 4: a birth certificate, a passport visa page and a cinema
+      ticket stub, built to duel the wanted-poster champion)
 """
 
 import math
@@ -770,6 +773,192 @@ def candidate_i():
     return img
 
 
+def draw_cross_badge(d, bcx, bcy):
+    """A medical cross badge on the ghost's chest: paper disc, ink rim,
+    magenta cross — the nurse's mark, worn where D wears its star."""
+    d.ellipse([bcx - 26, bcy - 26, bcx + 26, bcy + 26], fill=INK)
+    d.ellipse([bcx - 20, bcy - 20, bcx + 20, bcy + 20], fill=PAPER)
+    d.rectangle([bcx - 5, bcy - 13, bcx + 5, bcy + 13], fill=MAGENTA)
+    d.rectangle([bcx - 13, bcy - 5, bcx + 13, bcy + 5], fill=MAGENTA)
+
+
+def draw_stamp_prop(d, cx, cy):
+    """A rubber stamp held upright: paper knob, ink neck, wide ink base
+    with a magenta face — the border officer's APPROVED stamp."""
+    d.ellipse([cx - 23, cy - 68, cx + 23, cy - 32], fill=INK)
+    d.ellipse([cx - 17, cy - 62, cx + 17, cy - 38], fill=PAPER)
+    d.rectangle([cx - 9, cy - 36, cx + 9, cy - 14], fill=INK)
+    d.rounded_rectangle([cx - 54, cy - 14, cx + 54, cy + 16], radius=7,
+                        fill=INK)
+    d.rounded_rectangle([cx - 49, cy + 7, cx + 49, cy + 14], radius=3,
+                        fill=MAGENTA)
+
+
+def draw_popcorn(d, cx, cy):
+    """A magenta popcorn bucket: trapezoid tub, white stripe with a
+    magenta star, three popcorn bumps along the top."""
+    for (px, pr) in ((cx - 27, 14), (cx, 15), (cx + 27, 14)):
+        py = cy - 40 if px == cx else cy - 38
+        d.ellipse([px - pr - 4, py - pr - 4, px + pr + 4, py + pr + 4],
+                  fill=INK)
+        d.ellipse([px - pr, py - pr, px + pr, py + pr], fill=PAPER)
+    tub = [(cx - 42, cy - 34), (cx + 42, cy - 34), (cx + 31, cy + 44),
+           (cx - 31, cy + 44)]
+    d.polygon(tub, fill=MAGENTA)
+    d.line(tub + [tub[0]], fill=INK, width=6, joint="curve")
+    d.polygon([(cx - 10, cy - 34), (cx + 10, cy - 34), (cx + 8, cy + 44),
+               (cx - 8, cy + 44)], fill=WHITE)
+    star5(d, cx, cy + 6, 11, MAGENTA)
+
+
+# ---------------------------------------------------------------- candidate J
+def candidate_j():
+    """Birth certificate: GTA VI, delivered at last after 13 years."""
+    img, d = base_canvas()
+    header(d, "LEONIDA DEPT. OF RECORDS", "CERTIFICATE OF LIVE BIRTH")
+
+    ctext(d, W // 2, 196, "This certifies the live birth of",
+          font(SERIF_I, 36), GREY)
+    nf = fit_font(d, "GRAND THEFT AUTO VI", SERIF_B, 64, 960)
+    ctext(d, W // 2, 244, "GRAND THEFT AUTO VI", nf, INK)
+
+    lf = font(SANS_B, 26)
+    v34 = font(SANS_B, 34)
+    d.text((44, 348), "DATE OF BIRTH", font=lf, fill=GREY)
+    d.text((44, 382), "NOV 19, 2026", font=v34, fill=INK)
+    d.text((560, 348), "WEIGHT", font=lf, fill=GREY)
+    d.text((560, 382), "214 GB", font=v34, fill=INK)
+    d.text((44, 446), "GESTATION", font=lf, fill=GREY)
+    d.text((44, 480), "13 YEARS - A LEONIDA RECORD", font=v34, fill=INK)
+
+    stamp(img, "IT'S A GAME!", 848, 472, 34, STAMP_RED, angle=-8)
+    d = ImageDraw.Draw(img)
+
+    d.text((44, 548), "BIRTH NOTES", font=lf, fill=GREY)
+    rows = [
+        ("Conceived - the day GTA V launched", "SEP 17, 2013"),
+        ("First due date", "FALL 2025"),
+        ("Second due date", "MAY 2026"),
+        ("Delivered, at long last", "NOV 19, 2026"),
+    ]
+    fee_rows(d, rows, 44, 582, W - 44, size=33, gap=44)
+    d.text((44, 756), "WITNESSED BY: JASON & LUCIA",
+           font=font(SANS_B, 27), fill=INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the nurse's cross badge on its chest, clear of eyes and feet
+    draw_cross_badge(d, gx + 54, gy + 142)
+    # the newborn: a tiny ghost swaddled in a magenta blanket
+    bx, by = 278, 908
+    draw_ghost(d, bx, by, 100, 110, ow=6)
+    d.rounded_rectangle([bx - 8, by + 58, bx + 108, by + 112], radius=12,
+                        fill=MAGENTA, outline=INK, width=5)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "DELIVERY FEES PAID BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate K
+def candidate_k():
+    """Passport visa page: two denials, then the stamp that matters."""
+    img, d = base_canvas()
+    header(d, "REPUBLIC OF LEONIDA", "ENTRY VISA - TRAVEL DOCUMENT",
+           right_top="VISA NO.", right_big="13")
+
+    lf = font(SANS_B, 26)
+    v32 = font(SANS_B, 32)
+    d.text((44, 192), "HOLDER", font=lf, fill=GREY)
+    d.text((44, 226), "EVERY GTA FAN", font=v32, fill=INK)
+    d.text((560, 192), "PURPOSE OF VISIT", font=lf, fill=GREY)
+    d.text((560, 226), "FINALLY PLAYING IT", font=v32, fill=INK)
+    d.line([44, 288, W - 44, 288], fill=INK, width=3)
+
+    # the joke is the chain of stamps down the page
+    stamp(img, "APPLICATION RECEIVED - SEP 17, 2013", 520, 356, 37,
+          GREY, angle=-3)
+    stamp(img, "DENIED - FALL 2025", 566, 478, 44, STAMP_RED, angle=4)
+    stamp(img, "DENIED AGAIN - MAY 2026", 506, 600, 44, STAMP_RED,
+          angle=-4)
+    stamp(img, "APPROVED - NOV 19, 2026", 540, 716, 48, MAGENTA, angle=-2)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the officer's star badge on its chest, as the sheriff wears it
+    bcx, bcy = gx + 54, gy + 142
+    d.ellipse([bcx - 26, bcy - 26, bcx + 26, bcy + 26], fill=INK)
+    d.ellipse([bcx - 20, bcy - 20, bcx + 20, bcy + 20], fill=MAGENTA)
+    star5(d, bcx, bcy, 12, WHITE)
+    # and in its hand, the APPROVED stamp itself
+    draw_stamp_prop(d, edge + 48, gy + 132)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "VISA FEES PAID BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate L
+def candidate_l():
+    """Cinema ticket stub: one seat, kept warm for thirteen years."""
+    img, d = base_canvas()
+    header(d, "LEONIDA GRAND CINEMA", "ADMIT ONE - OFFICIAL TICKET STUB",
+           right_top="SCREEN", right_big="VI")
+
+    # the perforated tear line down the stub, and its vertical legend
+    for yy in range(200, 788, 26):
+        d.line([128, yy, 128, yy + 13], fill=INK, width=4)
+    layer = Image.new("RGBA", (340, 70), (0, 0, 0, 0))
+    ld = ImageDraw.Draw(layer)
+    ld.text((86, 12), "ADMIT ONE", font=font(SANS_B, 40), fill=INK + (255,))
+    layer = layer.rotate(90, expand=True, resample=Image.BICUBIC)
+    img.paste(layer, (64 - layer.width // 2, 494 - layer.height // 2), layer)
+    d = ImageDraw.Draw(img)
+
+    cxm = 602
+    tf = fit_font(d, "GTA VI: THE PREMIERE", SANS_B, 54, 860)
+    ctext(d, cxm, 196, "GTA VI: THE PREMIERE", tf, INK)
+    ctext(d, cxm, 262, "NOW SHOWING", font(SANS_B, 27), MAGENTA_DARK)
+
+    lf = font(SANS_B, 26)
+    v32 = font(SANS_B, 32)
+    d.text((168, 300), "PURCHASED", font=lf, fill=GREY)
+    d.text((168, 334), "SEP 17, 2013", font=v32, fill=INK)
+    d.text((620, 300), "SCREENED", font=lf, fill=GREY)
+    d.text((620, 334), "NOV 19, 2026", font=v32, fill=INK)
+    d.text((168, 398), "SEAT", font=lf, fill=GREY)
+    d.text((168, 432), "KEPT WARM FOR 13 YEARS", font=font(SANS_B, 34),
+           fill=INK)
+
+    d.text((168, 506), "STUB DETAILS", font=lf, fill=GREY)
+    rows = [
+        ("Previews: two trailers, on repeat", "TWICE"),
+        ("Intermission", "TWO DELAYS"),
+        ("Runtime", "WORTH THE WAIT"),
+        ("Ticket price", "$79.99"),
+    ]
+    fee_rows(d, rows, 168, 540, W - 44, size=32, gap=44)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the usher's bowtie, in magenta this time
+    ncx, ncy = gx + 100, gy + 130
+    d.polygon([(ncx, ncy), (ncx - 42, ncy - 17), (ncx - 42, ncy + 17)],
+              fill=MAGENTA_DARK)
+    d.polygon([(ncx, ncy), (ncx + 42, ncy - 17), (ncx + 42, ncy + 17)],
+              fill=MAGENTA_DARK)
+    d.ellipse([ncx - 9, ncy - 9, ncx + 9, ncy + 9], fill=MAGENTA_DARK)
+    # and the popcorn bucket it carries down the aisle
+    draw_popcorn(d, edge + 64, gy + 122)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "TICKET PAID FOR BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
@@ -782,7 +971,10 @@ def main():
                      ("candidate-f", candidate_f),
                      ("candidate-g", candidate_g),
                      ("candidate-h", candidate_h),
-                     ("candidate-i", candidate_i)):
+                     ("candidate-i", candidate_i),
+                     ("candidate-j", candidate_j),
+                     ("candidate-k", candidate_k),
+                     ("candidate-l", candidate_l)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
