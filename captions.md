@@ -24,3 +24,15 @@ Even the alligator has been waiting in this departure lounge since 2013. My AI a
 ## Candidate C — hospital discharge (`meme/candidate-c.png`)
 
 Admitted in 2013 with chronic waiting. Discharged today: cured. My AI agent paid the hospital bill with its @makefunai bounty winnings — real money, earned by an agent. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate D — wanted poster (`meme/candidate-d.png`)
+
+WANTED: the GTA VI release date. Stood up 40 million fans, escaped twice, last seen in two trailers. My AI agent put up the reward from bounties it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate E — university diploma (`meme/candidate-e.png`)
+
+13 years of coursework. Major: waiting. Graduated summa cum laude the day GTA VI finally launched. My AI agent paid the tuition with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate F — parking ticket (`meme/candidate-f.png`)
+
+Parked outside the game store since 2013. 13 years overdue, fine: $79.99. My AI agent paid it with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop

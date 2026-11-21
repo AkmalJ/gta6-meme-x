@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Render the three gta6-meme-x-01 candidate memes with PIL.
+"""Render the gta6-meme-x-01 candidate memes with PIL.
 
-Each candidate is a Leonida official document (boarding pass, pay stub,
-hospital discharge summary) drawn flat on cream paper: black header band,
-itemised joke lines, a stamp, and a magenta bottom band where the make.fun
-ghost appears as a character next to the "paid by my AI agent" line.
+Each candidate is a Leonida official document drawn flat on cream paper:
+black header band, itemised joke lines, a stamp, and a magenta bottom band
+where the make.fun ghost appears as a character next to the "paid by my AI
+agent" line. The first family is a boarding pass, a pay stub and a hospital
+discharge summary; the challenger family is a wanted poster, a university
+diploma and a parking ticket.
 
 Run:  python3 tools/make_meme.py
 Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
       meme/candidate-a2.png, meme/candidate-a3.png (revision rounds of A:
       a2 fixes the band ghost's prop and the DELAYED stamp placement;
-      a3 is a2 plus an alligator passenger waiting in the band)
+      a3 is a2 plus an alligator passenger waiting in the band),
+      meme/candidate-d.png, meme/candidate-e.png, meme/candidate-f.png
+      (fresh challengers built to duel the standing champion)
 """
 
 import math
@@ -36,6 +40,8 @@ SANS_B = os.path.join(FDIR, "liberation", "LiberationSans-Bold.ttf")
 SANS_R = os.path.join(FDIR, "liberation", "LiberationSans-Regular.ttf")
 MONO_B = os.path.join(FDIR, "liberation", "LiberationMono-Bold.ttf")
 MONO_R = os.path.join(FDIR, "liberation", "LiberationMono-Regular.ttf")
+SERIF_B = os.path.join(FDIR, "liberation", "LiberationSerif-Bold.ttf")
+SERIF_I = os.path.join(FDIR, "liberation", "LiberationSerif-Italic.ttf")
 
 
 def font(path, size):
@@ -124,6 +130,11 @@ def stamp(img, text, cx, cy, size, color, angle=-9):
     layer = layer.rotate(angle, expand=True, resample=Image.BICUBIC)
     img.paste(layer, (int(cx - layer.width / 2), int(cy - layer.height / 2)),
               layer)
+
+
+def ctext(d, cx, y, text, f, fill):
+    """Draw text centred on cx at height y."""
+    d.text((cx - tw(d, text, f) / 2, y), text, font=f, fill=fill)
 
 
 def dotted_line(d, x0, x1, y, color=GREY):
@@ -434,13 +445,169 @@ def candidate_c():
     return img
 
 
+# ---------------------------------------------------------------- candidate D
+def candidate_d():
+    """Wanted poster: the release date as a fugitive, finally apprehended."""
+    img, d = base_canvas()
+    header(d, "LEONIDA SHERIFF'S OFFICE", "WANTED POSTER - VICE CITY DIVISION",
+           right_top="CASE NO.", right_big="VI-13")
+
+    ctext(d, W // 2, 190, "WANTED", font(SANS_B, 112), INK)
+    ctext(d, W // 2, 318, "THE RELEASE DATE", font(SANS_B, 54), INK)
+    ctext(d, W // 2, 386, "DEAD OR DELAYED", font(SANS_B, 32), MAGENTA_DARK)
+    d.line([210, 442, W - 210, 442], fill=INK, width=3)
+
+    lf = font(SANS_B, 26)
+    d.text((44, 460), "CHARGES", font=lf, fill=GREY)
+    rows = [
+        ("Stood up 40 million fans", "COUNT 1"),
+        ("Escaped custody: Fall 2025", "COUNT 2"),
+        ("Escaped again: May 2026", "COUNT 3"),
+        ("Accomplice: total silence", "COUNT 4"),
+    ]
+    fee_rows(d, rows, 44, 498, W - 44, size=37, gap=48)
+
+    vf = font(SANS_B, 36)
+    d.text((44, 700), "LAST SEEN:", font=vf, fill=GREY)
+    lw = tw(d, "LAST SEEN:", vf)
+    d.text((44 + lw + 18, 700), "IN TWO TRAILERS", font=vf, fill=INK)
+    d.text((44, 752), "STATUS:", font=vf, fill=GREY)
+    sw = tw(d, "STATUS:", vf)
+    d.text((44 + sw + 18, 752), "APPREHENDED - NOV 19, 2026",
+           font=vf, fill=STAMP_RED)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # sheriff's star badge on the ghost's left chest, clear of eyes and feet
+    bcx, bcy = gx + 54, gy + 142
+    d.ellipse([bcx - 26, bcy - 26, bcx + 26, bcy + 26], fill=INK)
+    d.ellipse([bcx - 20, bcy - 20, bcx + 20, bcy + 20], fill=MAGENTA)
+    star5(d, bcx, bcy, 12, WHITE)
+    # the reward coin, held out as always
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "REWARD PAID BY MY AI AGENT", "from bounties it won on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate E
+def candidate_e():
+    """University diploma: a doctorate in waiting, conferred at launch."""
+    img, d = base_canvas()
+    header(d, "UNIVERSITY OF LEONIDA", "DIPLOMA - OFFICE OF THE REGISTRAR")
+
+    ctext(d, W // 2, 200, "This certifies that", font(SERIF_I, 36), GREY)
+    ctext(d, W // 2, 250, "EVERY GTA FAN", font(SERIF_B, 64), INK)
+    ctext(d, W // 2, 336, "has satisfied every requirement for the degree of",
+          font(SANS_R, 28), INK)
+    ctext(d, W // 2, 376, "DOCTORATE IN WAITING", font(SERIF_B, 54), INK)
+    ctext(d, W // 2, 450, "SUMMA CUM LAUDE - HE WAITED THE LONGEST",
+          font(SANS_B, 30), MAGENTA_DARK)
+
+    lf = font(SANS_B, 26)
+    vf = font(SANS_B, 32)
+    d.text((44, 502), "ENROLLED", font=lf, fill=GREY)
+    d.text((44, 536), "SEP 17, 2013", font=vf, fill=INK)
+    d.text((400, 502), "GRADUATED", font=lf, fill=GREY)
+    d.text((400, 536), "NOV 19, 2026", font=vf, fill=INK)
+    # the university seal is the magenta coin itself, ribbons and all
+    draw_coin(d, 948, 532, 44)
+    d.polygon([(922, 566), (946, 570), (934, 616), (912, 574)], fill=MAGENTA_DARK)
+    d.polygon([(950, 570), (974, 566), (984, 574), (962, 616)], fill=MAGENTA_DARK)
+
+    d.text((44, 592), "COURSE OF STUDY - FINAL GRADES", font=lf, fill=GREY)
+    rows = [
+        ("Trailer Analysis I & II", "A+"),
+        ("Delay Endurance (13 years)", "A+"),
+        ("Download Management, 214 GB", "A"),
+        ("Advanced Hopium Studies", "A+"),
+    ]
+    fee_rows(d, rows, 44, 628, W - 44, size=33, gap=42)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # mortarboard: a wide flat board on the dome, a skull band under its
+    # centre, and a tassel with a magenta bobble at the right corner
+    d.polygon([(48, 836), (268, 836), (312, 808), (92, 808)], fill=INK)
+    d.rounded_rectangle([102, 830, 214, 858], radius=8, fill=INK)
+    d.line([312, 808, 312, 850], fill=INK, width=7)
+    d.ellipse([302, 850, 322, 870], fill=MAGENTA)
+    # the graduate's diploma scroll: one long tube held across the body's
+    # front, magenta ribbon around its middle, hand gripping its left half
+    sc = Image.new("RGBA", (280, 120), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(sc)
+    sd.rounded_rectangle([15, 30, 245, 90], radius=28, fill=WHITE + (255,),
+                         outline=INK + (255,), width=6)
+    sd.ellipse([226, 34, 252, 86], fill=PAPER + (255,), outline=INK + (255,),
+               width=5)
+    sd.rectangle([168, 30, 190, 90], fill=MAGENTA + (255,))
+    sc = sc.rotate(-8, expand=True, resample=Image.BICUBIC)
+    img.paste(sc, (int(215 - sc.width / 2), int(gy + 172 - sc.height / 2)), sc)
+    d = ImageDraw.Draw(img)
+    draw_hand(d, 150, gy + 148, 25)
+    band_text(d, "TUITION PAID BY MY AI AGENT", "with its bounty winnings on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate F
+def candidate_f():
+    """Parking ticket: thirteen years in a loading zone, fined at last."""
+    img, d = base_canvas()
+    header(d, "LEONIDA POLICE DEPT.", "PARKING VIOLATION - NOTICE OF FINE",
+           right_top="TICKET NO.", right_big="13-YRS")
+
+    lf = font(SANS_B, 26)
+    v34 = font(SANS_B, 34)
+    d.text((44, 192), "VEHICLE", font=lf, fill=GREY)
+    d.text((44, 226), "ONE FAN, CAMPED OUTSIDE THE GAME STORE", font=v34, fill=INK)
+    d.text((44, 288), "LOCATION", font=lf, fill=GREY)
+    d.text((44, 322), "LOADING ZONE, VICE CITY", font=v34, fill=INK)
+    d.text((560, 288), "PARKED SINCE", font=lf, fill=GREY)
+    d.text((560, 322), "SEP 17, 2013", font=v34, fill=INK)
+    d.text((44, 384), "STATUS", font=lf, fill=GREY)
+    d.text((44, 418), "13 YEARS OVERDUE - DO NOT IGNORE",
+           font=v34, fill=STAMP_RED)
+
+    d.text((44, 480), "VIOLATIONS", font=lf, fill=GREY)
+    rows = [
+        ("13 years in a loading zone", "$44.99"),
+        ("False alarm: Fall 2025", "$15.00"),
+        ("False alarm: May 2026", "$20.00"),
+        ("Engine off, hopes on", "$0.00"),
+    ]
+    y = fee_rows(d, rows, 44, 516, W - 44, size=34, gap=44)
+    d.line([44, y + 8, W - 44, y + 8], fill=INK, width=3)
+    tf = font(SANS_B, 42)
+    d.text((44, y + 22), "TOTAL FINE DUE", font=tf, fill=INK)
+    tot = "$79.99"
+    d.text((W - 44 - tw(d, tot, tf), y + 22), tot, font=tf, fill=INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # traffic cop's cap: a band across the dome and a brim, badge star on it
+    d.rounded_rectangle([gx + 28, gy + 22, gx + 172, gy + 52], radius=12,
+                        fill=INK)
+    d.ellipse([gx + 10, gy + 42, gx + 190, gy + 72], fill=INK)
+    star5(d, gx + 100, gy + 37, 9, WHITE)
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "FINE PAID BY MY AI AGENT", "with bounty money it earned on")
+    return img
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
                      ("candidate-b", candidate_b),
                      ("candidate-c", candidate_c),
                      ("candidate-a2", candidate_a2),
-                     ("candidate-a3", candidate_a3)):
+                     ("candidate-a3", candidate_a3),
+                     ("candidate-d", candidate_d),
+                     ("candidate-e", candidate_e),
+                     ("candidate-f", candidate_f)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
