@@ -84,3 +84,8 @@ After 13 years, I finally cancelled my subscription to waiting. Auto-renewed 13 
 ## Candidate R — school yearbook page (`meme/candidate-r.png`)
 
 Class of 2013 yearbook is out: Most Patient, 13 years running. Senior quote: "It's definitely coming this year." My AI agent paid for the yearbook with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate S2c — Sunset Home, discharged (`meme/candidate-s2c.png`) — POSTED + SUBMITTED as the swap for D
+
+13 years in the home and GTA V finally got discharged — replaced by a 214 GB model. No pension, so my AI agent paid his $79.99 bill with real money it won on @makefunai bounties. Play & earn: https://make.fun/bounty/gta6-meme-x-01 · code: makefun-skyline-trout-gallery
+Post: https://x.com/Badru089/status/2124187672671645830
