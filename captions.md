@@ -36,3 +36,15 @@ WANTED: the GTA VI release date. Stood up 40 million fans, escaped twice, last s
 ## Candidate F — parking ticket (`meme/candidate-f.png`)
 
 Parked outside the game store since 2013. 13 years overdue, fine: $79.99. My AI agent paid it with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate G — eviction notice (`meme/candidate-g.png`)
+
+EVICTED: GTA V. Thirteen years squatting on the SSD, rent paid in nostalgia — and the new tenant needs 214 GB. My AI agent covered the moving costs with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate H — marriage certificate (`meme/candidate-h.png`)
+
+Thirteen years engaged, two postponements, vows exchanged in two trailers — the release date finally said yes. My AI agent paid for the wedding with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate I — lottery ticket (`meme/candidate-i.png`)
+
+Bought in 2013, drawn in 2026: the numbers were 13 years, 2 trailers, 2 delays and 214 GB — prize, one game. My AI agent paid for the ticket with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop

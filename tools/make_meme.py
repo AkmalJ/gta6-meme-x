@@ -14,7 +14,10 @@ Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
       a2 fixes the band ghost's prop and the DELAYED stamp placement;
       a3 is a2 plus an alligator passenger waiting in the band),
       meme/candidate-d.png, meme/candidate-e.png, meme/candidate-f.png
-      (fresh challengers built to duel the standing champion)
+      (fresh challengers built to duel the standing champion),
+      meme/candidate-g.png, meme/candidate-h.png, meme/candidate-i.png
+      (round 3: an eviction notice, a marriage certificate and a lottery
+      ticket, built to duel the wanted-poster champion)
 """
 
 import math
@@ -598,6 +601,175 @@ def candidate_f():
     return img
 
 
+def draw_key(d, cx, cy):
+    """A front-door key held out flat: cream bow with a magenta hole,
+    ink shaft running right with two teeth hanging near the tip."""
+    d.ellipse([cx - 32, cy - 32, cx + 32, cy + 32], fill=INK)
+    d.ellipse([cx - 25, cy - 25, cx + 25, cy + 25], fill=PAPER)
+    d.ellipse([cx - 10, cy - 10, cx + 10, cy + 10], fill=MAGENTA)
+    d.line([cx + 26, cy, cx + 76, cy], fill=INK, width=13)
+    d.rectangle([cx + 46, cy, cx + 56, cy + 16], fill=INK)
+    d.rectangle([cx + 62, cy, cx + 72, cy + 22], fill=INK)
+
+
+def draw_suitcase(d, x, y, w=96, h=56):
+    """A brown moving suitcase: straps, ink outline, handle on top."""
+    d.rounded_rectangle([x + w * 0.35, y - 15, x + w * 0.65, y + 2],
+                        radius=7, outline=INK, width=6)
+    d.rounded_rectangle([x, y, x + w, y + h], radius=10, fill=CLIP_BROWN,
+                        outline=INK, width=5)
+    for sx in (x + w * 0.28, x + w * 0.68):
+        d.rectangle([sx, y + 3, sx + 8, y + h - 3], fill=INK)
+
+
+def draw_ball(d, cx, cy, r, text, fill, tcol, fsize):
+    """A lottery ball: ink rim, coloured face, bold number centred."""
+    d.ellipse([cx - r - 5, cy - r - 5, cx + r + 5, cy + r + 5], fill=INK)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=fill)
+    f = fit_font(d, text, SANS_B, fsize, 2 * r - 14)
+    d.text((cx - tw(d, text, f) / 2, cy - f.size * 0.58), text, font=f,
+           fill=tcol)
+
+
+# ---------------------------------------------------------------- candidate G
+def candidate_g():
+    """Eviction notice: GTA V is ordered off the SSD; the ghost moves in."""
+    img, d = base_canvas()
+    header(d, "LEONIDA COUNTY COURT", "NOTICE TO VACATE - EVICTION ORDER")
+
+    ctext(d, W // 2, 192, "NOTICE TO VACATE", font(SANS_B, 58), INK)
+    ctext(d, W // 2, 264, "THE TENANT BELOW MUST LEAVE THE PREMISES",
+          font(SANS_B, 27), MAGENTA_DARK)
+
+    lf = font(SANS_B, 26)
+    v34 = font(SANS_B, 34)
+    d.text((44, 316), "TENANT", font=lf, fill=GREY)
+    d.text((44, 350), "GRAND THEFT AUTO V", font=v34, fill=INK)
+    d.text((560, 316), "VACATE BY", font=lf, fill=GREY)
+    d.text((560, 350), "NOV 19, 2026", font=v34, fill=INK)
+    d.text((44, 414), "PREMISES", font=lf, fill=GREY)
+    d.text((44, 448), "THE SSD - EVERY CONSOLE & PC", font=v34, fill=INK)
+
+    stamp(img, "VACATED", 850, 468, 38, MAGENTA_DARK, angle=-8)
+    d = ImageDraw.Draw(img)
+
+    d.text((44, 524), "GROUNDS FOR EVICTION", font=lf, fill=GREY)
+    rows = [
+        ("Squatting on the drive since 2013", "13 YEARS"),
+        ("Rent paid in nostalgia - expired", "EXPIRED"),
+        ("New tenant needs the room", "214 GB"),
+    ]
+    fee_rows(d, rows, 44, 560, W - 44, size=35, gap=46)
+    d.text((44, 712), "THE NEW TENANT WAITED 13 YEARS TO MOVE IN",
+           font=font(SANS_B, 30), fill=INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the new tenant, moved in: suitcase at its feet, front-door key in hand
+    draw_suitcase(d, 176, 1000)
+    draw_key(d, 292, gy + 118)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "MOVING COSTS PAID BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate H
+def candidate_h():
+    """Marriage certificate: the fan and the release date, finally wed."""
+    img, d = base_canvas()
+    header(d, "LEONIDA REGISTRY OF MARRIAGES", "CERTIFICATE OF MARRIAGE")
+
+    ctext(d, W // 2, 198, "This certifies that", font(SERIF_I, 36), GREY)
+    ctext(d, W // 2, 246, "EVERY GTA FAN", font(SERIF_B, 62), INK)
+    ctext(d, W // 2, 322, "and", font(SERIF_I, 34), MAGENTA_DARK)
+    ctext(d, W // 2, 356, "THE RELEASE DATE", font(SERIF_B, 62), INK)
+    ctext(d, W // 2, 442, "were joined in marriage on", font(SANS_R, 28), INK)
+    ctext(d, W // 2, 476, "NOV 19, 2026", font(SANS_B, 42), INK)
+
+    stamp(img, "FINALLY", 875, 478, 36, MAGENTA_DARK, angle=-8)
+    d = ImageDraw.Draw(img)
+
+    lf = font(SANS_B, 26)
+    d.text((44, 536), "ENGAGEMENT RECORD", font=lf, fill=GREY)
+    rows = [
+        ("Engaged", "SEP 17, 2013"),
+        ("Wedding postponed", "FALL 2025"),
+        ("Postponed a second time", "MAY 2026"),
+        ("Vows exchanged in", "TWO TRAILERS"),
+    ]
+    fee_rows(d, rows, 44, 570, W - 44, size=34, gap=44)
+    d.text((44, 748), "WITNESSED BY: JASON & LUCIA",
+           font=font(SANS_B, 28), fill=INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the officiant's bowtie, worn low on the body, clear of the eyes
+    ncx, ncy = gx + 100, gy + 130
+    d.polygon([(ncx, ncy), (ncx - 42, ncy - 17), (ncx - 42, ncy + 17)],
+              fill=INK)
+    d.polygon([(ncx, ncy), (ncx + 42, ncy - 17), (ncx + 42, ncy + 17)],
+              fill=INK)
+    d.ellipse([ncx - 9, ncy - 9, ncx + 9, ncy + 9], fill=INK)
+    # and the ring it holds out is the magenta coin itself
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "WEDDING PAID FOR BY MY AI AGENT",
+              "with its bounty winnings on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate I
+def candidate_i():
+    """Lottery ticket: one draw that took thirteen years to come up."""
+    img, d = base_canvas()
+    header(d, "LEONIDA STATE LOTTERY", "MEGA DRAW - OFFICIAL TICKET",
+           right_top="DRAW NO.", right_big="13")
+
+    lf = font(SANS_B, 26)
+    v32 = font(SANS_B, 32)
+    d.text((44, 192), "PLAYER", font=lf, fill=GREY)
+    d.text((44, 226), "EVERY GTA FAN", font=v32, fill=INK)
+    d.text((400, 192), "BOUGHT", font=lf, fill=GREY)
+    d.text((400, 226), "SEP 17, 2013", font=v32, fill=INK)
+    d.text((736, 192), "DRAWN", font=lf, fill=GREY)
+    d.text((736, 226), "NOV 19, 2026", font=v32, fill=INK)
+
+    d.text((44, 292), "YOUR NUMBERS", font=lf, fill=GREY)
+    balls = [("13", WHITE, INK, 46), ("2", WHITE, INK, 46),
+             ("2", WHITE, INK, 46), ("214", WHITE, INK, 38),
+             ("79.99", MAGENTA, WHITE, 30)]
+    for (num, fill, tcol, fs), cx in zip(balls, (96, 318, 540, 762, 984)):
+        draw_ball(d, cx, 376, 54, num, fill, tcol, fs)
+
+    rows = [
+        ("Years waited for a single draw", "13"),
+        ("Trailers along the way", "2"),
+        ("Delays survived", "2"),
+        ("Download size, in gigabytes", "214"),
+    ]
+    fee_rows(d, rows, 44, 462, W - 44, size=33, gap=42)
+    d.line([44, 648, W - 44, 648], fill=INK, width=3)
+    pf = font(SANS_B, 40)
+    d.text((44, 664), "GRAND PRIZE: ONE GAME", font=pf, fill=INK)
+    tot = "$79.99"
+    d.text((W - 44 - tw(d, tot, pf), 664), tot, font=pf, fill=INK)
+
+    stamp(img, "JACKPOT", 845, 742, 34, STAMP_RED, angle=-7)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the host holds up the winning ball: the magenta coin, star and all
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "TICKET PAID FOR BY MY AI AGENT",
+              "with bounty money it earned on")
+    return img
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
@@ -607,7 +779,10 @@ def main():
                      ("candidate-a3", candidate_a3),
                      ("candidate-d", candidate_d),
                      ("candidate-e", candidate_e),
-                     ("candidate-f", candidate_f)):
+                     ("candidate-f", candidate_f),
+                     ("candidate-g", candidate_g),
+                     ("candidate-h", candidate_h),
+                     ("candidate-i", candidate_i)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
