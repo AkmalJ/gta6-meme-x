@@ -7,7 +7,10 @@ itemised joke lines, a stamp, and a magenta bottom band where the make.fun
 ghost appears as a character next to the "paid by my AI agent" line.
 
 Run:  python3 tools/make_meme.py
-Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png
+Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
+      meme/candidate-a2.png, meme/candidate-a3.png (revision rounds of A:
+      a2 fixes the band ghost's prop and the DELAYED stamp placement;
+      a3 is a2 plus an alligator passenger waiting in the band)
 """
 
 import math
@@ -240,6 +243,102 @@ def candidate_a():
     return img
 
 
+# ------------------------------------------------------- candidate A, revised
+def draw_gator_on_suitcase(d):
+    """A Leonida alligator passenger, flat ink silhouette with white
+    sunglasses, sitting on a brown suitcase in the band's bottom-right
+    corner. Drawn last so nothing covers it."""
+    # suitcase: brown body, ink outline, two straps, a magenta luggage tag
+    d.rounded_rectangle([882, 1006, 1034, 1066], radius=10, fill=CLIP_BROWN,
+                        outline=INK, width=5)
+    for sx in (918, 984):
+        d.rectangle([sx, 1008, sx + 8, 1064], fill=INK)
+    d.rounded_rectangle([1028, 1018, 1050, 1042], radius=5, fill=MAGENTA,
+                        outline=INK, width=4)
+    # handle ends peeking out from behind the gator
+    d.rounded_rectangle([928, 990, 992, 1012], radius=8, outline=INK, width=6)
+    # tail: a long triangle tapering to a point off the body's rear
+    d.polygon([(916, 960), (868, 980), (916, 992)], fill=INK)
+    for rx in (892, 902):
+        d.polygon([(rx, 968), (rx + 5, 960), (rx + 10, 970)], fill=INK)
+    # body
+    d.rounded_rectangle([908, 954, 1022, 1000], radius=22, fill=INK)
+    # back ridges
+    for rx in (936, 962, 988):
+        d.polygon([(rx, 956), (rx + 9, 944), (rx + 18, 956)], fill=INK)
+    # head and snout, facing right
+    d.polygon([(1006, 960), (1052, 964), (1062, 980), (1056, 992),
+               (1008, 994)], fill=INK)
+    d.line([1018, 984, 1056, 986], fill=MAGENTA, width=3)
+    # white sunglasses on the head
+    d.rounded_rectangle([1012, 964, 1030, 978], radius=4, fill=WHITE)
+    d.rounded_rectangle([1034, 964, 1052, 978], radius=4, fill=WHITE)
+    d.rectangle([1028, 968, 1036, 972], fill=WHITE)
+    # front legs dangling over the suitcase
+    for lx in (926, 978):
+        d.rectangle([lx, 994, lx + 13, 1026], fill=INK)
+        d.ellipse([lx - 3, 1020, lx + 17, 1032], fill=INK)
+
+
+def _boarding_pass_v2(gator=False):
+    """Candidate A revised: same pass, but the band ghost holds the magenta
+    coin (as in candidate B) instead of the dark stamp prop, and the
+    DELAYED 13 YEARS stamp sits lower and flatter so it clears the route
+    line entirely."""
+    img, d = base_canvas()
+    header(d, "LEONIDA AIR", "BOARDING PASS - ONE WAY", right_top="FLIGHT", right_big="V > VI")
+
+    # route
+    rf = fit_font(d, "LOS SANTOS > VICE CITY", SANS_B, 66, 990)
+    d.text((44, 196), "LOS SANTOS > VICE CITY", font=rf, fill=INK)
+
+    lf = font(SANS_B, 26)
+    vf = font(SANS_B, 38)
+    d.text((44, 282), "PASSENGER", font=lf, fill=GREY)
+    d.text((44, 316), "EVERY GTA FAN", font=vf, fill=INK)
+    d.text((44, 388), "DEPARTED", font=lf, fill=GREY)
+    d.text((44, 422), "SEP 17, 2013", font=vf, fill=INK)
+    d.text((560, 388), "ARRIVES (FINALLY)", font=lf, fill=GREY)
+    d.text((560, 422), "NOV 19, 2026", font=vf, fill=INK)
+
+    stamp(img, "DELAYED 13 YEARS", 720, 330, 52, STAMP_RED, angle=-6)
+    d = ImageDraw.Draw(img)
+
+    rows = [
+        ("Schedule changes: Fall 2025, then May 2026", "$26"),
+        ("Checked baggage: one 214 GB download", "$214"),
+        ("Window seat: 13 years of trailer-watching", "$0"),
+        ("Unlisted passengers: Jason & Lucia", "$137"),
+    ]
+    y = fee_rows(d, rows, 44, 496, W - 44, gap=56)
+    d.line([44, y + 10, W - 44, y + 10], fill=INK, width=3)
+    tf = font(SANS_B, 44)
+    d.text((44, y + 24), "TOTAL DUE", font=tf, fill=INK)
+    tot = "$377"
+    d.text((W - 44 - tw(d, tot, tf), y + 24), tot, font=tf, fill=INK)
+
+    stamp(img, "NOW BOARDING", 700, 762, 34, MAGENTA_DARK, angle=-6)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the ghost holds its magenta coin out, exactly as in candidate B
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "PAID BY MY AI AGENT", "with bounty money it earned on")
+    if gator:
+        draw_gator_on_suitcase(d)
+    return img
+
+
+def candidate_a2():
+    return _boarding_pass_v2(gator=False)
+
+
+def candidate_a3():
+    return _boarding_pass_v2(gator=True)
+
+
 # ---------------------------------------------------------------- candidate B
 def candidate_b():
     img, d = base_canvas()
@@ -339,7 +438,9 @@ def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
                      ("candidate-b", candidate_b),
-                     ("candidate-c", candidate_c)):
+                     ("candidate-c", candidate_c),
+                     ("candidate-a2", candidate_a2),
+                     ("candidate-a3", candidate_a3)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
