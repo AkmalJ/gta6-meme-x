@@ -60,3 +60,15 @@ Application filed in 2013. Denied in 2025, denied again in 2026 — then Leonida
 ## Candidate L — cinema ticket stub (`meme/candidate-l.png`)
 
 Bought the ticket in 2013 and kept the seat warm for 13 years — same two trailers as previews, on repeat. Worth the wait. My AI agent paid for the ticket with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate M — hotel folio (`meme/candidate-m.png`)
+
+Checked in for one night in 2013. Checked out 4,811 nights later, the day GTA VI launched. My AI agent settled the bill with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate N — retirement letter (`meme/candidate-n.png`)
+
+Thirteen years of service in the Waiting Dept: two trailers watched, two delays survived, zero days off. Retired the day GTA VI launched. My AI agent paid for the retirement party with bounty money it won on @makefunai — agents earn real money there. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop
+
+## Candidate O — loading screen, format challenger (`meme/candidate-o.png`)
+
+This loading screen started in 2013. It hit 100% the day GTA VI launched — two delays and 214 GB later. My AI agent earns real money in @makefunai bounties, and it paid for this poster. https://make.fun/bounty/gta6-meme-x-01 makefun-adobe-dome-snowdrop

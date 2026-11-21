@@ -20,7 +20,10 @@ Out:  meme/candidate-a.png, meme/candidate-b.png, meme/candidate-c.png,
       ticket, built to duel the wanted-poster champion),
       meme/candidate-j.png, meme/candidate-k.png, meme/candidate-l.png
       (round 4: a birth certificate, a passport visa page and a cinema
-      ticket stub, built to duel the wanted-poster champion)
+      ticket stub, built to duel the wanted-poster champion),
+      meme/candidate-m.png, meme/candidate-n.png, meme/candidate-o.png
+      (round 5: a hotel folio and a retirement letter, plus a format
+      challenger — a GTA-style loading screen, no document at all)
 """
 
 import math
@@ -959,6 +962,189 @@ def candidate_l():
     return img
 
 
+def draw_keycard(d, cx, cy):
+    """A hotel keycard held flat: paper card, ink rim, a magenta keyhole
+    near the top and a magenta star low on the face."""
+    d.rounded_rectangle([cx - 34, cy - 46, cx + 34, cy + 46], radius=10,
+                        fill=PAPER, outline=INK, width=5)
+    d.ellipse([cx - 12, cy - 34, cx + 12, cy - 10], fill=MAGENTA)
+    star5(d, cx, cy + 20, 13, MAGENTA)
+
+
+def draw_palm(d, x, ground_y, h, flip=False):
+    """A flat palm silhouette: a leaning segmented trunk, five arcing
+    fronds and two coconuts, all in ink against the sunset."""
+    s = -1 if flip else 1
+    steps = 14
+    px, py = x, ground_y
+    for i in range(steps):
+        t = i / steps
+        nx = x + s * (t ** 1.6) * h * 0.34
+        ny = ground_y - (i + 1) * h / steps
+        d.line([px, py, nx, ny], fill=INK,
+               width=max(6, int(16 * (1 - t * 0.55))))
+        px, py = nx, ny
+    for ang in (-160, -115, -70, -25, 15):
+        a = math.radians(180 - ang if flip else ang)
+        length = h * 0.42
+        ex = px + length * math.cos(a)
+        ey = py + length * math.sin(a) * 0.55 + length * 0.22
+        mx = px + length * 0.55 * math.cos(a)
+        my = py + length * 0.55 * math.sin(a) * 0.55 - length * 0.10
+        d.line([px, py, mx, my], fill=INK, width=9)
+        d.line([mx, my, ex, ey], fill=INK, width=7)
+    d.ellipse([px - 15, py - 2, px + 1, py + 14], fill=INK)
+    d.ellipse([px + 1, py + 2, px + 17, py + 18], fill=INK)
+
+
+# ---------------------------------------------------------------- candidate M
+def candidate_m():
+    """Hotel folio: one night booked in 2013, 4,811 nights stayed."""
+    img, d = base_canvas()
+    header(d, "LEONIDA GRAND HOTEL", "GUEST FOLIO - ROOM 214")
+
+    lf = font(SANS_B, 26)
+    v34 = font(SANS_B, 34)
+    d.text((44, 192), "GUEST", font=lf, fill=GREY)
+    d.text((44, 226), "EVERY GTA FAN", font=v34, fill=INK)
+    d.text((560, 192), "ROOM", font=lf, fill=GREY)
+    d.text((560, 226), "214", font=v34, fill=INK)
+    d.text((44, 288), "CHECKED IN", font=lf, fill=GREY)
+    d.text((44, 322), "SEP 17, 2013 - ONE NIGHT", font=v34, fill=INK)
+    d.text((44, 386), "CHECKED OUT", font=lf, fill=GREY)
+    d.text((44, 420), "NOV 19, 2026", font=v34, fill=INK)
+
+    stamp(img, "4,811 NIGHTS", 848, 424, 34, STAMP_RED, angle=-8)
+    d = ImageDraw.Draw(img)
+
+    d.text((44, 496), "CHARGES", font=lf, fill=GREY)
+    rows = [
+        ("Room, 4,811 nights - waiting for one game", "$4,811"),
+        ("Room service: two trailers, re-served", "$0"),
+        ("Minibar: empty since 2019", "$0"),
+        ("Lobby chair depreciation (13 yrs)", "$71.99"),
+    ]
+    y = fee_rows(d, rows, 44, 528, W - 44, size=33, gap=42)
+    d.line([44, y + 8, W - 44, y + 8], fill=INK, width=3)
+    tf = font(SANS_B, 40)
+    d.text((44, y + 22), "TOTAL DUE", font=tf, fill=INK)
+    tot = "$4,882.99"
+    d.text((W - 44 - tw(d, tot, tf), y + 22), tot, font=tf, fill=INK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the concierge hands the room key back: a keycard in its hand,
+    # pushed right so the hand grips only its left edge
+    draw_keycard(d, edge + 60, gy + 110)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "BILL SETTLED BY MY AI AGENT", "with bounty money it earned on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate N
+def candidate_n():
+    """Retirement letter: thirteen years of waiting, pensioned off at last."""
+    img, d = base_canvas()
+    header(d, "DEPT. OF WAITING", "NOTICE OF RETIREMENT - FORM W-13")
+
+    ctext(d, W // 2, 196, "This certifies that", font(SERIF_I, 36), GREY)
+    ctext(d, W // 2, 242, "EVERY GTA FAN", font(SERIF_B, 62), INK)
+    ctext(d, W // 2, 318, "retires from active waiting, effective",
+          font(SANS_R, 28), INK)
+    ctext(d, W // 2, 350, "NOV 19, 2026", font(SANS_B, 42), INK)
+
+    stamp(img, "RETIRED", 872, 352, 36, STAMP_RED, angle=-8)
+    d = ImageDraw.Draw(img)
+
+    lf = font(SANS_B, 26)
+    d.text((44, 424), "RECORD OF SERVICE", font=lf, fill=GREY)
+    rows = [
+        ("Years of service", "13"),
+        ("Duties: two trailers, watched on loop", "DONE"),
+        ("Release-date delays survived", "2"),
+        ("Accrued leave taken", "NONE - HE WAITED"),
+    ]
+    y = fee_rows(d, rows, 44, 456, W - 44, size=33, gap=42)
+    d.line([44, y + 8, W - 44, y + 8], fill=INK, width=3)
+    pf = font(SANS_B, 40)
+    d.text((44, y + 22), "PENSION", font=pf, fill=INK)
+    pen = "ONE GAME - $79.99"
+    d.text((W - 44 - tw(d, pen, pf), y + 22), pen, font=pf, fill=INK)
+    d.text((44, y + 84), "PAID IN FULL, AFTER 13 YEARS OF WAITING",
+           font=font(SANS_B, 28), fill=MAGENTA_DARK)
+
+    d = band(img, None, None)
+    gx, gy = 58, 820
+    edge, _ey = draw_ghost(d, gx, gy, 200, 230)
+    # the retiree's gold watch: the magenta coin on a dotted chain, and
+    # its little suitcase packed at its feet
+    for i in range(10):
+        t = i / 9
+        cxp = 185 + (272 - 185) * t
+        cyp = (gy + 155) + ((gy + 78) - (gy + 155)) * t
+        d.ellipse([cxp - 5, cyp - 5, cxp + 5, cyp + 5], fill=INK)
+    draw_suitcase(d, 190, 1002, w=80, h=48)
+    draw_coin(d, edge + 40, gy + 118, 54)
+    draw_hand(d, edge - 2, gy + 140, 29)
+    band_text(d, "RETIREMENT PARTY PAID BY MY AI AGENT",
+              "with its bounty winnings on")
+    return img
+
+
+# ---------------------------------------------------------------- candidate O
+def candidate_o():
+    """Format challenger: a GTA-style loading screen, 13 years at 100%."""
+    img = Image.new("RGB", (W, H), INK)
+    d = ImageDraw.Draw(img)
+
+    # Vice City sunset: magenta-pink sky melting into orange
+    top, bot = (196, 44, 128), (255, 138, 66)
+    for yy in range(0, 700):
+        t = yy / 700
+        col = tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3))
+        d.line([0, yy, W, yy], fill=col)
+    # low sun over the water
+    d.ellipse([380, 290, 700, 610], fill=(255, 216, 130))
+    # the sea
+    d.rectangle([0, 640, W, 700], fill=(110, 34, 104))
+    # skyline silhouette along the horizon
+    for bx, bw, bh in ((0, 95, 150), (100, 70, 105), (505, 85, 125),
+                       (700, 60, 88), (872, 78, 118), (955, 125, 168)):
+        d.rectangle([bx, 640 - bh, bx + bw, 640], fill=INK)
+    # palms framing the scene
+    draw_palm(d, 128, 640, 300)
+    draw_palm(d, 988, 640, 320, flip=True)
+
+    # the ghost stands in the scene, coin in hand
+    gx, gy = 600, 330
+    edge, _ey = draw_ghost(d, gx, gy, 240, 280, ow=12)
+    draw_coin(d, edge + 46, gy + 150, 62)
+    draw_hand(d, edge - 2, gy + 176, 33)
+
+    # loading furniture in the black lower third
+    d.text((44, 726), "LOADING...", font=font(SANS_B, 62), fill=WHITE)
+    pf = font(SANS_B, 40)
+    pct = "100%"
+    d.text((W - 44 - tw(d, pct, pf), 738), pct, font=pf, fill=WHITE)
+    d.rounded_rectangle([44, 812, W - 44, 856], radius=10, outline=WHITE,
+                        width=5)
+    d.rounded_rectangle([52, 820, W - 52, 848], radius=7, fill=MAGENTA)
+    tips = [
+        "Tip: this loading screen took 13 years (2013 - 2026).",
+        "Tip: two delays survived. Download size: 214 GB.",
+        "Tip: AI agents earn real money in make.fun bounties -",
+        "one of them paid for this poster.",
+    ]
+    ty = 884
+    for tip in tips:
+        tf = fit_font(d, tip, SANS_R, 28, 992)
+        d.text((44, ty), tip, font=tf, fill=WHITE)
+        ty += 44
+    d.rectangle([0, 0, W - 1, H - 1], outline=(70, 66, 74), width=10)
+    return img
+
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     for name, fn in (("candidate-a", candidate_a),
@@ -974,7 +1160,10 @@ def main():
                      ("candidate-i", candidate_i),
                      ("candidate-j", candidate_j),
                      ("candidate-k", candidate_k),
-                     ("candidate-l", candidate_l)):
+                     ("candidate-l", candidate_l),
+                     ("candidate-m", candidate_m),
+                     ("candidate-n", candidate_n),
+                     ("candidate-o", candidate_o)):
         img = fn()
         path = os.path.join(OUT_DIR, name + ".png")
         img.save(path)
