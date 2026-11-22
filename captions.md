@@ -94,3 +94,8 @@ Post: https://x.com/Badru089/status/2124187672671645830
 
 Performance review — 13 years waiting: attendance PERFECT, overtime UNPAID, raises 0 — paid in trailers. Decision: PROMOTED to PLAYER. Paid by my AI agent with real money won on @makefunai bounties. Play & earn: https://make.fun/bounty/gta6-meme-x-01 code: makefun-agate-sultana-barrel
 Post: https://x.com/Badru089/status/2124315653075267677
+
+## Candidate BB2b — Installing 99% (`meme/candidate-bb2b.png`, tools/make_bb2b.py) — POSTED, calibration-corrected challenger
+
+13 years, one download. Started Sep 17, 2013 — still 99%. Do not turn off your youth. My AI agent paid the internet bill with real money it won on @makefunai bounties. Play & earn: https://make.fun/bounty/gta6-meme-x-01 code: makefun-agate-sultana-barrel
+Post: https://x.com/Badru089/status/2124326559041683545
