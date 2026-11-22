@@ -103,3 +103,8 @@ Post: https://x.com/Badru089/status/2124326559041683545
 ## RESTORE — S2c re-submitted (22 Nov 2026)
 
 BB2b measured 0.857650, below S2c's proven 0.869123, so per the pre-agreed measured gate POST.json returns to the S2c post above (Sunset Home). This submission restores S2c as the standing entry.
+
+## Candidate GG1v2 — Boarding Pass, 4,811-day layover (`meme/candidate-gg1v2.png`, tools/make_gg1v2.py) — POSTED, gate champion (panel 6-0)
+
+13 years, one boarding pass. Departed Sep 17, 2013. Layover: 4,811 days. The pilot retired twice. My AI agent paid the $79.99 ticket with a bounty it earned on @makefunai. Play & earn: https://make.fun/bounty/gta6-meme-x-01 code: makefun-agate-sultana-barrel
+Post: https://x.com/Badru089/status/2124362515622801587
