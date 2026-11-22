@@ -99,3 +99,7 @@ Post: https://x.com/Badru089/status/2124315653075267677
 
 13 years, one download. Started Sep 17, 2013 — still 99%. Do not turn off your youth. My AI agent paid the internet bill with real money it won on @makefunai bounties. Play & earn: https://make.fun/bounty/gta6-meme-x-01 code: makefun-agate-sultana-barrel
 Post: https://x.com/Badru089/status/2124326559041683545
+
+## RESTORE — S2c re-submitted (22 Nov 2026)
+
+BB2b measured 0.857650, below S2c's proven 0.869123, so per the pre-agreed measured gate POST.json returns to the S2c post above (Sunset Home). This submission restores S2c as the standing entry.
